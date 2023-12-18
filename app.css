@@ -7,12 +7,13 @@ body {
     flex-direction: column;
     border-style: solid;
     border-color: black;
-    /* justify-items: center;
-    align-content: center; */
-
 }
 
-#rowDivContainer {
+#gridSizeLabel {
+    font-size: 25px;
+}
+
+.rowDivContainer {
     display: flex;
     flex-direction: row;
 
@@ -20,5 +21,26 @@ body {
 
 .interactiveDiv {
     border-style: solid;
-    padding: 10px;
+    padding: 20px;
+}
+
+#gridSizeLabel {
+    text-align: center;
+}
+
+#btnContainer {
+    display: flex;
+    justify-content: center;
+    border-style: solid;
+    gap: 5px;
+}
+
+#btnSizeLabel {
+    font-size: 25px;
+}
+
+.sizeBtn {
+    font-size: 25px;
+    padding: 5px 25px;
+    margin: 5px;
 }
