@@ -1,0 +1,24 @@
+body {
+    width: fit-content
+}
+
+#squaresContainer {
+    display: flex;
+    flex-direction: column;
+    border-style: solid;
+    border-color: black;
+    /* justify-items: center;
+    align-content: center; */
+
+}
+
+#rowDivContainer {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.interactiveDiv {
+    border-style: solid;
+    padding: 10px;
+}
