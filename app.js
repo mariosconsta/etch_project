@@ -1,38 +1,39 @@
 const mainContainer = document.getElementById('squaresContainer');
 const gridSizeLabel = document.getElementById('gridSizeLabel');
 let gridSizeElem = document.createElement('b');
-let colorMode = false;
+
+// Initialize mouse state
+let mouseDown = false;
 
 gridSizeElem.textContent = 16;
 gridSizeLabel.appendChild(gridSizeElem);
 
 let gridSize = parseInt(gridSizeElem.textContent)
 
-const sketchToggle = document.getElementById('sketchToggle')
-sketchToggle.addEventListener('click', (e) => {
-    target = e.target
-    switch (target.checked) {
-        case false:
-            console.log('Toggle is not checked');
-            mainContainer.removeEventListener('mouseover', startDrawing)
-            break;
-        case true:
-            console.log('Toggle is checked');
-            mainContainer.addEventListener('mouseover', startDrawing)
-            break;
-    }
-})
-
 const colorToggle = document.getElementById('colorToggle')
 console.log(`Color toggle is: ${colorToggle.checked}`)
 
+
+mainContainer.onmousedown = () => {
+    mouseDown = true;
+    console.log(`mouseDown: ${mouseDown}`)
+}
+
+mainContainer.onmouseup = () => {
+    mouseDown = false;
+    console.log(`mouseDown: ${mouseDown}`)
+}
+
+
 let startDrawing = function (e) {
     let target = e.target
-    if (target.classList.contains('interactiveDiv')) {
-        let drawingColor = setColor(colorMode)
+    if (target.classList.contains('interactiveDiv') && mouseDown) {
+        let drawingColor = setColor()
         target.setAttribute('style', `background-color:${drawingColor}`)
     }
 }
+
+
 function createRowDiv(gridSize) {
     const rowDivContainer = document.createElement('div');
     rowDivContainer.setAttribute('class', 'rowDivContainer');
@@ -84,6 +85,7 @@ function clearGrid() {
         }
     });
 }
+
 appendRowDiv(gridSize = gridSize)
 
 const increaseGridSizeBtn = document.getElementById('increaseSizeBtn')
@@ -108,4 +110,20 @@ const resetButton = document.getElementById('resetSketchBtn');
 resetButton.addEventListener('click', (e) => {
     clearGrid()
     appendRowDiv(gridSize = gridSize)
+})
+
+const sketchToggle = document.getElementById('sketchToggle')
+sketchToggle.addEventListener('click', (e) => {
+    target = e.target
+    switch (target.checked) {
+        case false:
+            console.log('Toggle is not checked');
+            mainContainer.removeEventListener('mouseover', startDrawing)
+            break;
+        case true:
+            console.log('Toggle is checked');
+            mainContainer.addEventListener('mouseover', startDrawing);
+
+            break;
+    }
 })
