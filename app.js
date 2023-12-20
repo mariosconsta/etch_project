@@ -1,15 +1,14 @@
 const mainContainer = document.getElementById('squaresContainer');
 const gridSizeLabel = document.getElementById('gridSizeLabel');
 let gridSizeElem = document.createElement('b');
+let colorMode = false;
 
 gridSizeElem.textContent = 16;
 gridSizeLabel.appendChild(gridSizeElem);
 
 let gridSize = parseInt(gridSizeElem.textContent)
 
-let enableDraw = false;
 const sketchToggle = document.getElementById('sketchToggle')
-
 sketchToggle.addEventListener('click', (e) => {
     target = e.target
     switch (target.checked) {
@@ -24,12 +23,14 @@ sketchToggle.addEventListener('click', (e) => {
     }
 })
 
+const colorToggle = document.getElementById('colorToggle')
+console.log(`Color toggle is: ${colorToggle.checked}`)
+
 let startDrawing = function (e) {
     let target = e.target
-    console.log(target)
     if (target.classList.contains('interactiveDiv')) {
-        let randomColor = getRandomColor()
-        target.setAttribute('style', `background-color:${randomColor}`)
+        let drawingColor = setColor(colorMode)
+        target.setAttribute('style', `background-color:${drawingColor}`)
     }
 }
 function createRowDiv(gridSize) {
@@ -52,26 +53,32 @@ function appendRowDiv(gridSize) {
 
 }
 
-function getRandomColor() {
-    // Generate random values for Red, Green, and Blue components
-    var r = Math.floor(Math.random() * 256);
-    var g = Math.floor(Math.random() * 256);
-    var b = Math.floor(Math.random() * 256);
+function setColor() {
 
-    // Convert decimal to hexadecimal and ensure two digits
-    var hexR = r.toString(16).padStart(2, '0');
-    var hexG = g.toString(16).padStart(2, '0');
-    var hexB = b.toString(16).padStart(2, '0');
+    if (colorToggle.checked) {
+        // Generate random values for Red, Green, and Blue components
+        var r = Math.floor(Math.random() * 256);
+        var g = Math.floor(Math.random() * 256);
+        var b = Math.floor(Math.random() * 256);
 
-    // Concatenate the components to form the final Hex color
-    var hexColor = '#' + hexR + hexG + hexB;
+        // Convert decimal to hexadecimal and ensure two digits
+        var hexR = r.toString(16).padStart(2, '0');
+        var hexG = g.toString(16).padStart(2, '0');
+        var hexB = b.toString(16).padStart(2, '0');
 
-    return hexColor;
+        // Concatenate the components to form the final Hex color
+        var hexColor = '#' + hexR + hexG + hexB;
+
+        return hexColor;
+    }
+    else {
+        return '#000000'
+    }
+
 }
 
 function clearGrid() {
     [...mainContainer.childNodes].forEach(element => {
-        console.log(element)
         if (element.tagName === 'DIV') {
             element.parentNode.removeChild(element)
         }
