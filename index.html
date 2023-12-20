@@ -10,12 +10,26 @@
 
 <body>
     <h1>Etch a Sketch</h1>
-    <div id="squaresContainer"><label id="gridSizeLabel">Grid Size: </label></div>
 
+    <div id="squaresContainer"></div>
 
-    <div id="btnContainer">
-        <button class="sizeBtn" id="decreaseSizeBtn">-</button>
-        <button class="sizeBtn" id="increaseSizeBtn">+</button>
+    <div id="bottomContainer">
+
+        <label id="gridSizeLabel">Grid Size: </label>
+
+        <div id="btnContainer">
+            <button class="miscBtn" id="decreaseSizeBtn">-</button>
+            <button class="miscBtn" id="increaseSizeBtn">+</button>
+            <button class="miscBtn" id="resetSketchBtn">Reset</button>
+        </div>
+
+        <div class="switchContainer">
+            <label style="font-size: 25px;">Enable / Disable drawing: </label>
+            <label class="switchDrawing">
+                <input id="sketchToggle" type="checkbox">
+                <span class="slider"></span>
+            </label>
+        </div>
     </div>
 
     <script src="app.js" defer></script>

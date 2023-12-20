@@ -1,11 +1,37 @@
 const mainContainer = document.getElementById('squaresContainer');
 const gridSizeLabel = document.getElementById('gridSizeLabel');
 let gridSizeElem = document.createElement('b');
+
 gridSizeElem.textContent = 16;
 gridSizeLabel.appendChild(gridSizeElem);
 
 let gridSize = parseInt(gridSizeElem.textContent)
 
+let enableDraw = false;
+const sketchToggle = document.getElementById('sketchToggle')
+
+sketchToggle.addEventListener('click', (e) => {
+    target = e.target
+    switch (target.checked) {
+        case false:
+            console.log('Toggle is not checked');
+            mainContainer.removeEventListener('mouseover', startDrawing)
+            break;
+        case true:
+            console.log('Toggle is checked');
+            mainContainer.addEventListener('mouseover', startDrawing)
+            break;
+    }
+})
+
+let startDrawing = function (e) {
+    let target = e.target
+    console.log(target)
+    if (target.classList.contains('interactiveDiv')) {
+        let randomColor = getRandomColor()
+        target.setAttribute('style', `background-color:${randomColor}`)
+    }
+}
 function createRowDiv(gridSize) {
     const rowDivContainer = document.createElement('div');
     rowDivContainer.setAttribute('class', 'rowDivContainer');
@@ -53,16 +79,6 @@ function clearGrid() {
 }
 appendRowDiv(gridSize = gridSize)
 
-
-mainContainer.addEventListener('mouseover', (e) => {
-    let target = e.target
-
-    if (target.classList.contains('interactiveDiv')) {
-        let randomColor = getRandomColor()
-        target.setAttribute('style', `background-color:${randomColor}`)
-    }
-})
-
 const increaseGridSizeBtn = document.getElementById('increaseSizeBtn')
 increaseGridSizeBtn.addEventListener('click', (e) => {
     clearGrid()
@@ -78,5 +94,11 @@ decreaseGridSizeBtn.addEventListener('click', (e) => {
     gridSize = gridSize - 2;
     gridSizeElem.textContent = gridSize;
     console.log(gridSize)
+    appendRowDiv(gridSize = gridSize)
+})
+
+const resetButton = document.getElementById('resetSketchBtn');
+resetButton.addEventListener('click', (e) => {
+    clearGrid()
     appendRowDiv(gridSize = gridSize)
 })
